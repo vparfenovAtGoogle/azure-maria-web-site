@@ -27,11 +27,16 @@ def execop (oper, lh, rh):
 
 @app.route('/calc')
 def calc():
-    op = request.args.get('op')
-    lh = float (request.args.get('lh')) 
-    rh = float (request.args.get('rh'))
-    res = execop (op, lh, rh)
-    return '<h3>Calculator</h3>%s %s %s = %s' % (lh, op, rh, res)
+    try:
+        op = request.args.get('op')
+        lhp = request.args.get('lh')
+        rhp = request.args.get('rh')
+        lh = float (lhp) 
+        rh = float (rhp)
+        res = execop (op, lh, rh)
+        return '<h3>Calculator</h3>%s %s %s = %s' % (lh, op, rh, res)
+    except:
+        return '<h4>Error: check parameters: op="%s", lh="%s", rh="%s"<h4>' % (op, lhp, rhp)
 
 @app.route('/bye')
 def bye():
